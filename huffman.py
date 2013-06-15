@@ -31,6 +31,9 @@ class Node(object):
         self.left = left
         self.right = right
 
+    def __eq__(self, other):
+        return self.__dict__ == other.__dict__
+
     def __repr__(self):
         return "<Node symbol:%s weight:%s left:%s right:%s>" % (self.symbol, self.weight, self.left, self.right)
 
@@ -97,7 +100,7 @@ def create_graph(root):
 
     def walk_tree(node, input):
         left = right = input
-        name = 'root' if not input else 'root' + str(input.to01())
+        name = 'root' if not input else ''.join(['root', str(input.to01())])
 
         if node.left is None and node.right is None:
             graph.add_node(pydot.Node(name, shape='record', label="{{'%s'|%s}|%s}" % (node.symbol, node.weight, input.to01())))
