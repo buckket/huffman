@@ -18,6 +18,7 @@
 import sys
 import math
 import pydot
+import argparse
 
 from collections import defaultdict
 from bitarray import bitarray
@@ -147,12 +148,14 @@ def print_output(string, codebook, weights):
 
 
 if __name__ == '__main__':
-    string = "Hallo Welt"
+    parser = argparse.ArgumentParser()
+    parser.add_argument("input", nargs='?', help="string to encode", default='Hallo Welt')
+    args = parser.parse_args()
 
-    symbols = calculate_frequency(string)
+    symbols = calculate_frequency(args.input)
     nodes = create_nodes(symbols)
     root = create_tree(nodes)
     (codebook, weights) = create_codebook(root)
 
     create_graph(root)
-    print_output(string, codebook, weights)
+    print_output(args.input, codebook, weights)
