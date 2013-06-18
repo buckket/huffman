@@ -1,3 +1,4 @@
+argparse==1.2.1
 bitarray==0.8.1
 pydot==1.0.28
 pyparsing==1.5.7
