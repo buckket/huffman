@@ -91,7 +91,12 @@ def create_codebook(root):
             walk_tree(node.left, left)
             walk_tree(node.right, right)
 
-    walk_tree(root, bitarray())
+    if root.left is None and root.right is None:
+        codebook[root.symbol] = bitarray('0')
+        weights.append(root.weight)
+    else:
+        walk_tree(root, bitarray())
+
     return (codebook, weights)
 
 def create_graph(root):
@@ -116,7 +121,11 @@ def create_graph(root):
             walk_tree(node.left, left)
             walk_tree(node.right, right)
 
-    walk_tree(root, bitarray())
+    if root.left is None and root.right is None:
+        graph.add_node(pydot.Node('root', shape='record', label="{{'%s'|%s}|%s}" % (root.symbol, root.weight, bitarray('0').to01())))
+    else:
+        walk_tree(root, bitarray())
+
     graph.write_png('tree.png')
 
 def print_output(string, codebook, weights):
